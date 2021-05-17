@@ -36,34 +36,31 @@ router.setState = function(state, state1 = null) {
    *    2. You may modify the parameters of setState() as much as you like
    */
 
-
-  // home page
-  if (state.name === 'home')
+   // home page
+  if (state == null || state.name == 'home')
   {
     document.getElementsByTagName('h1')[0].innerHTML = 'Journal Entries';
     document.getElementsByTagName('body')[0].className = '';
   }
-  
-  //setting page
-   else if(state.name === 'settings')
-   {
-    document.getElementsByTagName('h1')[0].innerHTML = 'Settings';
-    document.getElementsByTagName('body')[0].className = 'settings'
 
+  //entry page
+  else if(state.name == "settings"){
+    document.getElementsByTagName('h1')[0].innerHTML = 'Settings';
+    document.getElementsByTagName('body')[0].className = 'settings';
   }
 
   //entry page
-  else if (state.name === 'journalentry')
-  {
-    document.getElementsByTagName('h1')[0].innerHTML = 'Entry ' + state.id;
+  else if (state.name == "journalentry"){
     document.getElementsByTagName('body')[0].className = 'single-entry';
+    document.getElementsByTagName('h1')[0].innerHTML = 'Entry ' + state.id;
 
     document.querySelector('body').removeChild(document.querySelector('body').children[2]);
-    var Entry = document.createElement("entry-page");
+
+    let Entry = document.createElement("entry-page");
     document.querySelector('body').insertBefore(Entry,document.querySelector('body').children[2]);
     Entry.entry = document.getElementById(state.id).entry;
-
   }
 
-}
 
+
+}
