@@ -17,9 +17,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-window.onpopstate = function(event){
-  setState(event.state);
-};
+
 
 const title = '';
 let numEnt = 1;
@@ -32,38 +30,33 @@ document.addEventListener('DOMContentLoaded', () => {
         newPost.entry = entry;
         newPost.id = numEnt;
         numEnt++;
-
-        //entry
         newPost.addEventListener('click',() => {
           let journalEntry = {name: "journalentry", id: newPost.id};
-          history.pushState(journalEntry, title, "#entry" + journalEntry.id);
+          history.pushState(journalEntry, '', "#entry" + journalEntry.id);
           setState(journalEntry);
         });
 
         document.querySelector('main').appendChild(newPost);
       });
 
-      //setting
       document.querySelector('header img').addEventListener('click', () => {
         let settings = {name: "settings", id:0};
         history.pushState(settings, title, 'Settings');   //state , title, url
         setState(settings); 
       });
 
-      //home
       document.querySelector('header h1').addEventListener('click', () => {
-        let home = {name: "home", id: -1};
         if(history.state != null && history.state.name != 'home') {
+          let home = {name: "home", id: -1};
           history.pushState(home, title, location.origin); 
           setState(home); 
         }
 
-        
-        document.querySelector('main').appendChild(newPost);
+    
       });
     });
 });
 
-
-
-
+window.onpopstate = function(event){
+  setState(event.state);
+};
